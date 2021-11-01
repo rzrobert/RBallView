@@ -1,8 +1,7 @@
 name: flutter_3d_ball
 description: A new flutter plugin project.
 version: 0.0.1
-author:
-homepage:
+homepage: https://github.com/rzrobert/RBallView
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
