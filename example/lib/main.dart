@@ -70,6 +70,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.blue,
         appBar: AppBar(
           title: const Text(
             'Plugin example app',
@@ -80,26 +81,44 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Container(
           width: double.infinity,
-          padding: EdgeInsets.only(top: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              FutureBuilder<List<RBallTagData>>(
-                future: _recommendUserfuture,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return RBallView(
-                    isAnimate: isAnimate,
-                    isShowDecoration: true,
-                    mediaQueryData: MediaQuery.of(context),
-                    keywords: snapshot.data,
-                    highlight: [snapshot.data[0]],
-                    onTapRBallTagCallback: (RBallTagData data) {
-                      print('点击回调：${data.tag}');
-                    },
-                  );
-                },
-              ),
-            ],
+          child: FutureBuilder<List<RBallTagData>>(
+            future: _recommendUserfuture,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              double _wh =
+                  ((MediaQuery.of(context).size.width - 2 * 10) * 32 / 35);
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width,
+                alignment: Alignment.center,
+                child: snapshot.connectionState == ConnectionState.done
+                    ? snapshot.hasError
+                        ? Text("Error: ${snapshot.error}")
+                        : RBallView(
+                            isAnimate: isAnimate,
+                            isShowDecoration: true,
+                            mediaQueryData: MediaQuery.of(context),
+                            keywords: snapshot.data,
+                            highlight: [snapshot.data[0]],
+                            onTapRBallTagCallback: (RBallTagData data) {
+                              print('点击回调：${data.tag}');
+                            },
+                            textColor: Colors.white,
+                            highLightTextColor: Colors.red,
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius:
+                                  BorderRadius.circular((_wh / 2).toDouble()),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xffffffff),
+                                  blurRadius: 5.0,
+                                )
+                              ],
+                            ),
+                          )
+                    : Text('Searching for friends...'),
+              );
+            },
           ),
         ),
         floatingActionButton: FloatingActionButton(

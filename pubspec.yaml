@@ -33,9 +33,6 @@ flutter:
         pluginClass: Flutter3dBallPlugin
       ios:
         pluginClass: Flutter3dBallPlugin
-      web:
-        pluginClass: Flutter3dBallWeb
-        fileName: flutter_3d_ball_web.dart
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

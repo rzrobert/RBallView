@@ -13,6 +13,12 @@ PointAnimationSequence? pointAnimationSequence;
 //球半径
 int radius = 150;
 
+///文字颜色
+Color textColor = const Color(0xFF333333);
+
+///文字高亮颜色
+Color highLightTextColor = const Color(0xFF000000);
+
 class RBallView extends StatefulWidget {
   final MediaQueryData mediaQueryData;
 
@@ -44,6 +50,12 @@ class RBallView extends StatefulWidget {
   ///球体半径
   final int? radius;
 
+  ///文字颜色
+  final Color? textColor;
+
+  ///文字高亮颜色
+  final Color? highLightTextColor;
+
   const RBallView({
     Key? key,
     required this.mediaQueryData,
@@ -56,6 +68,8 @@ class RBallView extends StatefulWidget {
     this.isShowDecoration = false,
     this.centers,
     this.radius,
+    this.textColor,
+    this.highLightTextColor,
   }) : super(key: key);
 
   @override
@@ -109,6 +123,10 @@ class _RBallViewState extends State<RBallView>
       RBallViewUtil.pointHalfTop = 3;
       RBallViewUtil.pointHalfWidth = 9;
     }
+
+    // 初始化常量值
+    textColor = widget.textColor ?? const Color(0xFF333333);
+    highLightTextColor = widget.highLightTextColor ?? const Color(0xFF000000);
 
     //计算球尺寸、半径等
     sizeOfBallWithFlare = widget.mediaQueryData.size.width - 2 * 10;
@@ -538,8 +556,8 @@ ui.Paragraph buildText(
     ui.TextStyle(
         fontSize: fontSize,
         color: highLight
-            ? Color(0xFF000000).withOpacity(opacity)
-            : Color(0xFF333333).withOpacity(opacity),
+            ? highLightTextColor.withOpacity(opacity)
+            : textColor.withOpacity(opacity),
         height: 1.0,
         shadows: highLight
             ? [
